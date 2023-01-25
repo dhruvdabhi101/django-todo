@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main File</title>
+  </head>
+  <body>
+    <h1>Tasks</h1>
+
+    {% if error %}
+    <p style="color: red">{{error}}</p>
+    {% endif %} {% if success %}
+    <p style="color: green">{{success}}</p>
+    {% endif %}
+
+    <form action="/add" method="POST">
+      {% csrf_token %}
+      <input type="text" name="task" />
+      <input type="submit" value="Add" />
+    </form>
+
+    <ul>
+      {% for i in tasks %}
+
+      <li>
+        {{i.task}}
+
+        <form action="/delete/{{i.id}}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Delete" />
+        </form>
+      </li>
+
+      {% endfor %}
+    </ul>
+  </body>
+</html>
